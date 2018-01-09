@@ -1,0 +1,37 @@
+﻿@model Medy.Models.EmployeeUser
+@{
+    /**/
+
+    Layout = null; }
+
+@using (Html.BeginForm("Add", "EmployeeUserMan", FormMethod.Post, new { onsubmit = "return submitForm(this)" }))
+{
+    @Html.HiddenFor(Model => Model.userID)
+   
+    <div class="form-group" style="width:100%">
+        @Html.LabelFor(model => model.fname, new { @class = "control-label" })
+        @Html.EditorFor(Model => Model.fname, new { htmlAttributes = new { @class = "form-control", @required ="true" } })
+    </div>
+
+    <div class="form-group" style="width:100%">
+        @Html.LabelFor(model => model.lname, new { @class = "control-label" })
+        @Html.EditorFor(model => model.lname, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+    </div>
+
+    <div class="form-group" style="width:100%">
+        @Html.LabelFor(model => model.username, new { @class = "control-label" })
+        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+    </div>
+
+    <div class="form-group" style="width:100%">
+        @Html.LabelFor(model => model.email, new { @class = "control-label", })
+        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" , @required = "true", @type = "email" } })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-primary" />
+        <input type="submit" value="Reset" class="btn btn-warning" />
+
+    </div>
+}
+
