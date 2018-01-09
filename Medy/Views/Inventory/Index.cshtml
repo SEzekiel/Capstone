@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "Request List";
+}
+
+<a class="btn btn-success" onclick="PopupForm('@Url.Action("Query","Inventory")')"><i class="fa fa-plus"></i> Add new employee</a>
+<table id="requestTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Request</th>
+            <th>Quantity</th>
+            <th>Date</th>
+            <th>Request by</th>
+            <th>Department</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+</table>
+
+<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        var popup, dataTable;
+        $(document).ready(function () {
+            datatable = $("#requestTable").DataTable({
+                "ajax": {
+                    "url": "/Inventory/GetData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+
+                "columns": [
+                    { "data": "request" },
+                    { "data": "quantity" },
+                    { "data": "date" },
+                    { "data": "requestBy" },
+                    { "data": "requestbyDepartment" },
+                    {
+                        "data": "requestID", "render": function (data) {
+                            return "<a class='btn btn-default btn-sm' onclick=PopupForm('@Url.Action("Query","Inventory")/" + data + "')><i class='fa fa-pencil'></i> Fulfil</a> <a class='btn btn-danger btn-sm' onclick=Delete(" + data + ")><i class='fa fa-trash'></i> Deny</a>";
+                        },
+
+                        "orderable": false,
+                        "searchable": false,
+                        "width":"150px"
+                    }
+                ],
+                "language": {
+                    "emptyTable":"It's all clean here now but once requests start coming in, you will see them here"
+                }
+            });
+        });
+
+        function PopupForm(url) {
+            var formDiv = $('<div/>');
+
+            $.get(url)
+                .done(function (response) {
+                    formDiv.html(response);
+
+                    popup = formDiv.dialog({
+                        autoOpen: true,
+                        resizeable: false,
+                        title: "Complete employee data",
+                        heigth: 500,
+                        close: function () {
+                            popup.dialog('destroy').remove();
+                        }
+
+                    });
+                });
+        }
+
+        function submitForm(form) {
+                $.ajax({
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            popup.dialog('close');
+                            dataTable.ajax.reload();
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            });
+                        }
+                    }
+                });
+                return false;
+        }
+
+        function Delete(id) {
+            if (confirm("You are about to delete an item from records. Are you sure you want to do this?")) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Delete","Invetory")/' + id,
+                    success: function () {
+                        if (data.success) {
+                            popup.dialog('close');
+                            dataTable.ajax.reload();
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            });
+                        }
+                    }
+                })
+            }
+        }
+    </script>
+
+}

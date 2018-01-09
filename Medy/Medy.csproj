@@ -6794,6 +6794,16 @@
       <DependentUpon>EmployeeUserManagementModel.edmx</DependentUpon>
       <LastGenOutput>EmployeeUserManagementModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventoryRequestModel.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventoryRequestModel.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\build\bootstrap-less\.csscomb.json" />
@@ -7426,6 +7436,13 @@
     <Content Include="Models\DepartmentModel.edmx.diagram">
       <DependentUpon>DepartmentModel.edmx</DependentUpon>
     </Content>
+    <EntityDeploy Include="Models\InventoryRequestModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>InventoryRequestModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\InventoryRequestModel.edmx.diagram">
+      <DependentUpon>InventoryRequestModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -7452,6 +7469,7 @@
     <Compile Include="Controllers\EmployeeUserManController.cs" />
     <Compile Include="Controllers\EmployeeUsersControllerCheck.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -7509,6 +7527,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EmployeeUserManagementModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryRequestModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryRequestModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Request.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -7541,6 +7577,8 @@
     <Content Include="Views\Department\Add.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_InventaryLayout.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
